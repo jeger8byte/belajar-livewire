@@ -6,15 +6,24 @@ use Illuminate\Support\Facades\Hash;
 
 new class extends Component
 {
-    public $name, $email, $password;
-    
+    public $name = '';
+    public $email = '';
+    public $password = '';
+        
      public function createUser (){
+        $validated = $this->validate([
+            'name' => 'required|min:3',
+            'email' => 'required|email:dns|unique:users',
+            'password' => 'required|min:3'
+        ]);
         User::create([
-            'name' => $this->name,
-            'email' => $this->email,
-            'password' => Hash::make($this->password)
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password'])
         ]);
          $this->reset(); // reset input field after create user
+         session()->flash('success', 'User created successfully.');
+         
     }
 
     public function render()
