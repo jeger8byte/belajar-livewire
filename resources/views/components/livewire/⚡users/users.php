@@ -4,10 +4,12 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Livewire\WithPagination;
 
 new class extends Component
 {   
     use WithFileUploads;
+    use WithPagination;
 
     public $name = '';
     public $email = '';
@@ -42,7 +44,7 @@ new class extends Component
     {
         return view('livewire.⚡users.users',[
             'title' => 'User Page',
-            'users' => User::all()
+            'users' => User::latest()->paginate(6)
         ]);
     }
 
