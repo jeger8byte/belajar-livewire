@@ -51,7 +51,7 @@ new class extends Component
 
     public function render()
     {
-        return view('livewire.⚡users.users',[
+        return view('⚡users.users',[
             'title' => 'User Page',
             'users' => User::latest('created_at')
             ->where('name', 'like', "%{$this->query}%")

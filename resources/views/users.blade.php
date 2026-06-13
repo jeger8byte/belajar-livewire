@@ -11,7 +11,10 @@
         @livewireStyles
     </head>
     <body>
-        <livewire:livewire.users />
+        <div class="flex justify-center gap-10">
+            @livewire('user-register-form')
+            @livewire('users-list')
+        </div>    
 
         @livewireScripts
             <script src="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.js"></script>
