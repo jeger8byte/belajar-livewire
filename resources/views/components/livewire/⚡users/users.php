@@ -11,10 +11,19 @@ new class extends Component
     use WithFileUploads;
     use WithPagination;
 
+    public $query='';
     public $name = '';
     public $email = '';
     public $password = '';
-    public $avatar;
+    public $avatar ;
+
+     public function updatedQuery(){
+         
+         $this->resetPage();
+     }
+     public function search (){
+        $this->resetPage();
+     }
         
      public function createUser (){
         $validated = $this->validate([
@@ -44,7 +53,9 @@ new class extends Component
     {
         return view('livewire.⚡users.users',[
             'title' => 'User Page',
-            'users' => User::latest()->paginate(6)
+            'users' => User::latest('created_at')
+            ->where('name', 'like', "%{$this->query}%")
+            ->paginate(6)
         ]);
     }
 
