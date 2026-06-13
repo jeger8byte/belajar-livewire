@@ -4,6 +4,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\User;
 use Livewire\Attributes\On; 
+use Livewire\Attributes\Computed; 
 
 new class extends Component
 {
@@ -25,13 +26,12 @@ new class extends Component
         return view('placeholder.skeleton');
     }
 
-    public function render(){
-        sleep(2);
-        return view('⚡users-list.users-list',[
-            'title' => 'User Page',
-            'users' => User::latest('created_at')
+    #[Computed()]
+    public function users(){
+        return User::latest('created_at')
             ->where('name', 'like', "%{$this->query}%")
-            ->paginate(6)
-        ]);
+            ->paginate(6);
     }
+
+   
 };
